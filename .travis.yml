@@ -1,0 +1,20 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t ashar/react-test -f ./client/Dockerfile.dev ./client 
+
+script:
+    - docker run -e CI=true ashar/react-test npm run test
+
+after_install:
+    - docker build -t ashar/multi-client ./client
+    - docker build -t ashar/multi-nginx ./nginx
+    - docker build -t ashar/multi-server ./server
+    - docker build -t ashar/multi-worker ./worker
+    - echo "$Docker_Password"| docker login -u "$Docker_ID" --password-stdin
+    - docker push ashar/multi-client
+    - docker push ashar/multi-nginx
+    - docker push ashar/multi-server
+    - docker push ashar/multi-worker
