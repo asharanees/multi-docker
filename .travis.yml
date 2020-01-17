@@ -9,12 +9,12 @@ script:
     - docker run -e CI=true ashar/react-test npm run test
 
 after_success:
-    - docker build -t ashar/multi-client ./client
-    - docker build -t ashar/multi-nginx ./nginx
-    - docker build -t ashar/multi-server ./server
-    - docker build -t ashar/multi-worker ./worker
+    - docker build -t asharanees/multi-client ./client
+    - docker build -t asharanees/multi-nginx ./nginx
+    - docker build -t asharanees/multi-server ./server
+    - docker build -t asharanees/multi-worker ./worker
     - echo "$Docker_Password"| docker login -u "$Docker_ID" --password-stdin
-    - docker push ashar/multi-client
-    - docker push ashar/multi-nginx
-    - docker push ashar/multi-server
-    - docker push ashar/multi-worker
+    - docker push asharanees/multi-client
+    - docker push asharanees/multi-nginx
+    - docker push asharanees/multi-server
+    - docker push asharanees/multi-worker
